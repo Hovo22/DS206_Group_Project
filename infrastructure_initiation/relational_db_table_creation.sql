@@ -27,7 +27,7 @@ CREATE TABLE Customers (
     Region VARCHAR(255),
     PostalCode VARCHAR(10),
     Country VARCHAR(255),
-    Phone VARCHAR(255),
+    Phone NVARCHAR(255),
     Fax VARCHAR(255)
 );
 
@@ -47,16 +47,16 @@ CREATE TABLE Employees (
     HomePhone VARCHAR(255),
     Extension VARCHAR(10),
     Notes TEXT,
-    ReportsTo INT,
+    ReportsTo FLOAT,
     PhotoPath VARCHAR(255)
 );
 
 CREATE TABLE OrderDetails (
     OrderID INT NOT NULL,
     ProductID INT NOT NULL,
-    UnitPrice DECIMAL(10, 2),
+    UnitPrice FLOAT,
     Quantity INT,
-    Discount DECIMAL(5, 5)
+    Discount FLOAT,
 );
 
 
@@ -68,7 +68,7 @@ CREATE TABLE Orders (
     RequiredDate DATE,
     ShippedDate DATE,
     ShipVia INT,
-    Freight DECIMAL(10, 2),  
+    Freight FLOAT,  
     ShipName VARCHAR(255),
     ShipAddress VARCHAR(255),
     ShipCity VARCHAR(100),
@@ -84,7 +84,7 @@ CREATE TABLE Products (
     SupplierID INT,
     CategoryID INT,
     QuantityPerUnit VARCHAR(255),
-    UnitPrice DECIMAL(10, 2), 
+    UnitPrice FLOAT, 
     UnitsInStock INT,
     UnitsOnOrder INT,
     ReorderLevel INT,
@@ -113,7 +113,7 @@ CREATE TABLE Suppliers (
     Region VARCHAR(100),
     PostalCode VARCHAR(20),
     Country VARCHAR(100),
-    Phone VARCHAR(20),
+    Phone VARCHAR(100),
     Fax VARCHAR(20),
     HomePage VARCHAR(255)
 );
@@ -125,40 +125,84 @@ CREATE TABLE Territories (
     RegionID INT
 );
 
--- Adding Primary Key Constraints
-ALTER TABLE Categories ADD CONSTRAINT PK_Categories PRIMARY KEY (CategoryID);
-ALTER TABLE Customers ADD CONSTRAINT PK_Customers PRIMARY KEY (CustomerID);
-ALTER TABLE Employees ADD CONSTRAINT PK_Employees PRIMARY KEY (EmployeeID);
-ALTER TABLE OrderDetails ADD CONSTRAINT PK_OrderDetails PRIMARY KEY (OrderID, ProductID);
-ALTER TABLE Orders ADD CONSTRAINT PK_Orders PRIMARY KEY (OrderID);
-ALTER TABLE Products ADD CONSTRAINT PK_Products PRIMARY KEY (ProductID);
-ALTER TABLE Region ADD CONSTRAINT PK_Region PRIMARY KEY (RegionID);
-ALTER TABLE Shippers ADD CONSTRAINT PK_Shippers PRIMARY KEY (ShipperID);
-ALTER TABLE Suppliers ADD CONSTRAINT PK_Suppliers PRIMARY KEY (SupplierID);
-ALTER TABLE Territories ADD CONSTRAINT PK_Territories PRIMARY KEY (TerritoryID);
 
--- Adding Foreign Key Constraints
-ALTER TABLE Employees ADD CONSTRAINT FK_Employees_Employees FOREIGN KEY (ReportsTo)
-REFERENCES Employees (EmployeeID);
 
-ALTER TABLE OrderDetails ADD CONSTRAINT FK_OrderDetails_Orders FOREIGN KEY (OrderID)
-REFERENCES Orders (OrderID);
-ALTER TABLE OrderDetails ADD CONSTRAINT FK_OrderDetails_Products FOREIGN KEY (ProductID)
-REFERENCES Products (ProductID);
 
-ALTER TABLE Orders ADD CONSTRAINT FK_Orders_Customers FOREIGN KEY (CustomerID)
-REFERENCES Customers (CustomerID);
-ALTER TABLE Orders ADD CONSTRAINT FK_Orders_Employees FOREIGN KEY (EmployeeID)
-REFERENCES Employees (EmployeeID);
-ALTER TABLE Orders ADD CONSTRAINT FK_Orders_Shippers FOREIGN KEY (ShipVia)
-REFERENCES Shippers (ShipperID);
-ALTER TABLE Orders ADD CONSTRAINT FK_Orders_Territories FOREIGN KEY (TerritoryID)
-REFERENCES Territories (TerritoryID);
 
-ALTER TABLE Products ADD CONSTRAINT FK_Products_Categories FOREIGN KEY (CategoryID)
-REFERENCES Categories (CategoryID);
-ALTER TABLE Products ADD CONSTRAINT FK_Products_Suppliers FOREIGN KEY (SupplierID)
-REFERENCES Suppliers (SupplierID);
 
-ALTER TABLE Territories ADD CONSTRAINT FK_Territories_Region FOREIGN KEY (RegionID)
-REFERENCES Region (RegionID);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
