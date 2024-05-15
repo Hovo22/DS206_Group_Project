@@ -125,5 +125,3 @@ CREATE TABLE Territories (
     TerritoryDescription VARCHAR(255),
     RegionID INT
 );
-
-
