@@ -18,19 +18,18 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Customers (
-    CustomerID VARCHAR(10) NOT NULL,
-    CompanyName VARCHAR(255),
-    ContactName VARCHAR(255),
-    ContactTitle VARCHAR(255),
-    Address VARCHAR(255),
-    City VARCHAR(255),
-    Region VARCHAR(255),
-    PostalCode VARCHAR(10),
-    Country VARCHAR(255),
-    Phone NVARCHAR(255),
-    Fax VARCHAR(255)
-);
-
+    CustomerID NVARCHAR(255) PRIMARY KEY,
+    CompanyName NVARCHAR(255),
+    ContactName NVARCHAR(255),
+    ContactTitle NVARCHAR(255),
+    Address NVARCHAR(255),
+    City NVARCHAR(255),
+    Region NVARCHAR(255),
+    PostalCode NVARCHAR(20),
+    Country NVARCHAR(255),
+    Phone NVARCHAR(20),
+    Fax NVARCHAR(20)
+)
 CREATE TABLE Employees (
     EmployeeID INT NOT NULL,
     LastName VARCHAR(255),

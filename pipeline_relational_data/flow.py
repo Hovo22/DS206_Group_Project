@@ -1,4 +1,4 @@
-from utils import generate_uuid
+from pipeline_relational_data.utils import generate_uuid
 from tasks import execute_sql_inserts
 import pyodbc
 import pandas as pd
