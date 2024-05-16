@@ -1,5 +1,5 @@
-from ..utils import generate_uuid, get_connection
-from .tasks import create_rel_db, create_rel_tables, create_rel_dependencies, populate_rel_tables
+from utils import generate_uuid, get_connection
+from pipeline_relational_data.tasks import create_rel_db, create_rel_tables, create_rel_dependencies, populate_rel_tables
 
 class RelationalDataFlow:
     def __init__(self):

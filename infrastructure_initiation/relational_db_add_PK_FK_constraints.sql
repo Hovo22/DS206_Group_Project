@@ -1,3 +1,5 @@
+USE ORDERS_RELATIONAL_DB;
+
 -- Adding Primary Key Constraints
 ALTER TABLE Categories ADD CONSTRAINT PK_Categories PRIMARY KEY (CategoryID);
 ALTER TABLE Customers ADD CONSTRAINT PK_Customers PRIMARY KEY (CustomerID);

@@ -11,21 +11,21 @@ import pandas as pd
 # logger = setup_logger(execution_id)
 
 def create_rel_db(connection):
-    rel_db = utils.read_sql_file('infrastructure_initiation\relational_db_creation.sql')
+    rel_db = utils.read_sql_file('infrastructure_initiation/relational_db_creation.sql')
 
     cursor = connection.cursor()
     cursor.execute(rel_db)
     connection.commit()
 
 def create_rel_tables(connection):
-    rel_tables = utils.read_sql_file('infrastructure_initiation\relational_db_table_creation.sql')
+    rel_tables = utils.read_sql_file('infrastructure_initiation/relational_db_table_creation.sql')
 
     cursor = connection.cursor()
     cursor.execute(rel_tables)
     connection.commit()
 
 def create_rel_dependencies(connection):
-    rel_deps = utils.read_sql_file('infrastructure_initiation\relational_db_add_PK_FK_constraints.sql')
+    rel_deps = utils.read_sql_file('infrastructure_initiation/relational_db_add_PK_FK_constraints.sql')
 
     cursor = connection.cursor()
     cursor.execute(rel_deps)

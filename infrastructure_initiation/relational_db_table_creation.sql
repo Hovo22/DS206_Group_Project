@@ -18,7 +18,7 @@ CREATE TABLE Categories (
 );
 
 CREATE TABLE Customers (
-    CustomerID NVARCHAR(255) PRIMARY KEY,
+    CustomerID NVARCHAR(255) NOT NULL,
     CompanyName NVARCHAR(255),
     ContactName NVARCHAR(255),
     ContactTitle NVARCHAR(255),
@@ -123,85 +123,3 @@ CREATE TABLE Territories (
     TerritoryDescription VARCHAR(255),
     RegionID INT
 );
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
