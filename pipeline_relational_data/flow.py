@@ -1,24 +1,31 @@
-from pipeline_relational_data.utils import generate_uuid
-from tasks import execute_sql_inserts
-import pyodbc
-import pandas as pd
+from ..utils import generate_uuid, get_connection
+from .tasks import create_rel_db, create_rel_tables, create_rel_dependencies, populate_rel_tables
 
 class RelationalDataFlow:
     def __init__(self):
         self.execution_id = generate_uuid()
-
+    
     def exec(self):
-        conn = pyodbc.connect('Driver={SQL Server};'
-                              'Server=DESKTOP-NUBFUB9\\MSSQLSERVER01;'
-                              'Database=ORDERS_RELATIONAL_DB;'
-                              'Trusted_Connection=yes;')
+        """
+        Execute tasks in the right order.
+        """
+        server = 'DESKTOP-NUBFUB9\\MSSQLSERVER01'
+        database = 'ORDERS_RELATIONAL_DB'
+        connection = get_connection(server, database)
 
         try:
-            df_customers = pd.read_excel('raw_data_source.xlsx', sheet_name='Customers')
-            execute_sql_inserts(df_customers, 'Customers', conn)
-
+            create_rel_db(connection)
+            create_rel_tables(connection)
+            create_rel_dependencies(connection)
+            populate_rel_tables(connection)
+        except Exception as e:
+            print(f"Execution {self.execution_id} failed: {e}")
         finally:
-            conn.close()
+            connection.close()
 
         print(f"Data flow execution completed with ID: {self.execution_id}")
 
+if __name__ == "__main__":
+    data_flow = RelationalDataFlow()
+    print(f"Execution ID: {data_flow.execution_id}")
+    data_flow.exec()

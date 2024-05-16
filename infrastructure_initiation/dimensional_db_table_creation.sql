@@ -1,4 +1,4 @@
-USE ORDERS_DIMENTIONAL_DB;
+USE ORDERS_DIMENSIONAL_DB;
 
 -- Drop existing tables if they exist
 DROP TABLE IF EXISTS FactOrders;
@@ -57,10 +57,59 @@ CREATE TABLE DimEmployees (
     IsDeleted BIT
 );
 
+CREATE TABLE DimProducts (
+    ProductID INT IDENTITY(1,1) PRIMARY KEY,
+    ProductName NVARCHAR(255),
+    SupplierID INT,
+    CategoryID INT,
+    QuantityPerUnit NVARCHAR(255),
+    UnitPrice FLOAT,
+    UnitsInStock INT,
+    UnitsOnOrder INT,
+    ReorderLevel INT,
+    Discontinued BIT
+);
+
+CREATE TABLE DimRegion (
+    RegionID INT IDENTITY(1,1) PRIMARY KEY,
+    RegionDescription NVARCHAR(255)
+);
+
+CREATE TABLE DimShippers (
+    ShipperID INT IDENTITY(1,1) PRIMARY KEY,
+    CompanyName NVARCHAR(255),
+    Phone NVARCHAR(20),
+    IsDeleted BIT
+);
+
+CREATE TABLE DimSuppliers (
+    SupplierID INT IDENTITY(1,1) PRIMARY KEY,
+    CompanyName NVARCHAR(255),
+    ContactName NVARCHAR(255),
+    ContactTitle NVARCHAR(255),
+    Address NVARCHAR(255),
+    City NVARCHAR(100),
+    Region NVARCHAR(100),
+    PostalCode NVARCHAR(20),
+    Country NVARCHAR(100),
+    Phone NVARCHAR(100),
+    Fax NVARCHAR(20),
+    HomePage NVARCHAR(255),
+    PriorContactName NVARCHAR(255)  -- SCD3 specific column
+);
+
+CREATE TABLE DimTerritories (
+    TerritoryID NVARCHAR(10) PRIMARY KEY,
+    TerritoryDescription NVARCHAR(255),
+    RegionID INT,
+    EffectiveDate DATETIME,
+    ExpiryDate DATETIME,
+    IsCurrent BIT
+);
+
 -- Create fact table
 CREATE TABLE FactOrders (
     OrderID INT IDENTITY(1,1) PRIMARY KEY,
-    DateKey INT,  -- Assuming a Date dimension exists
     CustomerSK INT,
     EmployeeSK INT,
     OrderDate DATE,
@@ -68,5 +117,5 @@ CREATE TABLE FactOrders (
     ShippedDate DATE,
     ShipperSK INT,
     Freight DECIMAL(19,4),
-    TotalAmount DECIMAL(19,4)  -- Calculated as sum of (UnitPrice * Quantity) for all items in order
+    TotalAmount DECIMAL(19,4)
 );

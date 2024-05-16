@@ -1,9 +1,15 @@
+import uuid
 import pyodbc
-import pandas as pd
 from sqlalchemy import create_engine
-import numpy as np
 
-file_path = "raw_data_source.xlsx"
+def generate_uuid():
+    """
+    Generates a unique UUID.
+    
+    Returns:
+    str: A string representation of a UUID.
+    """
+    return str(uuid.uuid4())
 
 def read_sql_file(file_path):
     """
@@ -11,22 +17,6 @@ def read_sql_file(file_path):
     """
     with open(file_path, 'r') as file:
         return file.read()
-
-def execute_sql_inserts(df, table_name, connection):
-    """
-    Executes SQL insert statements for a given DataFrame and table name.
-    
-    Parameters:
-    df (DataFrame): The DataFrame containing the data to be inserted.
-    table_name (str): The name of the table into which data is to be inserted.
-    connection (pyodbc.Connection): The connection object to the database.
-    """
-    sql = read_sql_file(f'pipeline_relational_data/queries/insert_into_{table_name}.sql')
-    cursor = connection.cursor()
-    for index, row in df.iterrows():
-        cursor.execute(sql, tuple(row))
-    cursor.commit()
-    cursor.close()
 
 def get_engine(server, database):
     """
@@ -67,5 +57,22 @@ def execute_sql_script(file_path, connection):
     sql = read_sql_file(file_path)
     cursor = connection.cursor()
     cursor.execute(sql)
+    connection.commit()
+    cursor.close()
+
+def execute_sql_inserts(df, table_name, connection):
+    """
+    Executes SQL insert statements for a given DataFrame and table name.
+    
+    Parameters:
+    df (DataFrame): The DataFrame containing the data to be inserted.
+    table_name (str): The name of the table into which data is to be inserted.
+    connection (pyodbc.Connection): The connection object to the database.
+    """
+
+    sql = read_sql_file(f'pipeline_relational_data/queries/insert_into_{table_name}.sql')
+    cursor = connection.cursor()
+    for index, row in df.iterrows():
+        cursor.execute(sql, tuple(row))
     connection.commit()
     cursor.close()
